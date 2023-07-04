@@ -1,0 +1,27 @@
+{
+  "name": "nodeproj",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "mongoose": "^7.3.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start":"nodemon app",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NAVANEESHKM/E-cart-backend.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NAVANEESHKM/E-cart-backend/issues"
+  },
+  "homepage": "https://github.com/NAVANEESHKM/E-cart-backend#readme"
+}
