@@ -1,23 +1,22 @@
 const express = require('express');
 const router1 = express.Router();
-const Item = require('./schemes2'); // Import your Item model
+const Item = require('./mergedschema');
 
 // Define the route to retrieve an item by ID
-router1.get('/all/comment', async (req, res) => {
+router1.post('/all/comment', async (req, res) => {
+  const {email}=req.body
   try {
-    const itemId = req.body;
-
-    const item = await Item.find({});
-
-    if (!itemId) {
-      return res.status(404).json({ message: 'Item not found' });
-    }
+    const item = await Item.collection.findOne({email:email});
+    console.log('Found one user:', item);
+  
+    
 
     res.status(200).json(item); // Send the retrieved item as the response
-  } catch (error) {
+  }catch (error) {
     console.error('Error retrieving item:', error);
     res.status(500).json({ error: 'An error occurred while retrieving the item' });
   }
 });
 
 module.exports = router1;
+

@@ -20,6 +20,7 @@ const itemSchema = new mongoose.Schema({
   // Add other properties as needed
 }); 
 
+
 const Item = mongoose.model('customerdetails', itemSchema);
 
 module.exports = Item;

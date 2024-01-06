@@ -11,11 +11,13 @@ const item2=require('./getting');
 const item3=require('./updating');
 const item4=require('./deleting');
 const item5=require('./gettingall');
+const user=require('./postuser');
+const login=require("./loginfind")
 const cors = require('cors');
 
 
-
-mongoose.connect("mongodb+srv://user:pass@cluster0.mom8ir1.mongodb.net/", { useNewUrlParser: true, useUnifiedTopology: true })
+//mongodb+srv://user:pass@cluster0.mom8ir1.mongodb.net/
+mongoose.connect("mongodb://localhost:27017", { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
     console.log('Connected to MongoDB');
   })
@@ -35,7 +37,9 @@ mongoose.connect("mongodb+srv://user:pass@cluster0.mom8ir1.mongodb.net/", { useN
   app.use('/api',item4);
   app.use('/api',comment1);
   app.use('/api',comment2);
- 
+
+  app.use('/api',user)
+ app.use('/api',login)
 
   
 

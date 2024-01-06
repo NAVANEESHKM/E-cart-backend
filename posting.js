@@ -1,28 +1,57 @@
+// const express = require('express');
+// const router = express.Router();
+// const Item = require('./schemes');
+
+// router.post('/items', async (req, res) => {
+//   try {
+//     const { name, product, quantity, phone } = req.body;
+
+//     // Use insertOne to insert the document
+//     const insertOneResult = await Item.collection.insertOne({ name, product, quantity, phone });
+
+//     console.log('Item saved successfully:', insertOneResult.ops);
+//     res.status(200).json({ message: 'Item saved successfully', data: insertOneResult.ops });
+//   } catch (error) {
+//     console.error('Error saving item:', error);
+//     res.status(500).json({ error: `An error occurred while saving the item: ${error.message}` });
+//   }
+// });
+
+// module.exports = router;
+
+
 const express = require('express');
 const router = express.Router();
-const Item = require('./schemes');
+const Item = require('./mergedschema');
 
+router.post('/items', async (req, res) => {
+  try {
+    const {email, name, product, quantity, phone } = req.body;
 
-router.post('/items', (req, res) => {
-    const { name, product,quantity ,phone} = req.body;
-  
-    const newItem = new Item({
-      name,
-      product,
-      quantity,
-      phone
-    });
-  
-    newItem.save()
-      .then(() => {
-        console.log('Item saved successfully');
-        res.status(200).json({ message: 'Item saved successfully' });
-      })
-      .catch((error) => {
-        console.error('Error saving item:', error);
-        res.status(500).json({ error: 'An error occurred while saving the item' });
-      });
-      
-  });
+    // Check if a document with the specified email exists
+    const existingUser = await Item.collection.findOne({ email });
 
-  module.exports = router;
+    if (!existingUser) {
+      // If no matching document is found, you can handle it as needed (e.g., return an error)
+      return res.status(404).json({ message: 'Email not found' });
+    }
+
+    // If the email exists, update the document by pushing the new item into the 'items' array
+    const updateResult = await Item.collection.updateOne(
+      { email },
+      { $push: { items: { name, product, quantity, phone } } }
+    );
+
+    if (updateResult.modifiedCount === 0) {
+      // If no document was modified, you can handle it as needed (e.g., return an error)
+      return res.status(500).json({ message: 'Failed to update the document' });
+    }
+
+    res.status(200).json({ message: 'Item saved successfully' });
+  } catch (error) {
+    console.error('Error saving item:', error);
+    res.status(500).json({ error: `An error occurred while saving the item: ${error.message}` });
+  }
+});
+
+module.exports = router;
