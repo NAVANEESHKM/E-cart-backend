@@ -7,12 +7,12 @@ const app = express();
 const itemRouter = require('./posting');
 const comment1=require('./posting2');
 const comment2=require('./gettingall2');
-const item2=require('./getting');
-const item3=require('./updating');
 const item4=require('./deleting');
 const item5=require('./gettingall');
 const user=require('./postuser');
 const login=require("./loginfind")
+const image=require("./imagepost")
+const imageget=require("./imageget")
 const cors = require('cors');
 
 
@@ -26,13 +26,12 @@ mongoose.connect("mongodb://localhost:27017", { useNewUrlParser: true, useUnifie
   });
 
 
+  
   app.use(express.json());
   app.use(cors());
   app.use('/api',itemRouter);
   app.use('/api',item5);
-  app.use('/api',item2);
 
-  app.use('/api',item3);
 
   app.use('/api',item4);
   app.use('/api',comment1);
@@ -41,6 +40,8 @@ mongoose.connect("mongodb://localhost:27017", { useNewUrlParser: true, useUnifie
   app.use('/api',user)
  app.use('/api',login)
 
+ app.use('/api',image)
+app.use('/api',imageget)
   
 
 
