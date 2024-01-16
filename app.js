@@ -15,9 +15,9 @@ const image=require("./imagepost")
 const imageget=require("./imageget")
 const cors = require('cors');
 
-
+//mongodb://localhost:27017
 //mongodb+srv://user:pass@cluster0.mom8ir1.mongodb.net/
-mongoose.connect("mongodb://localhost:27017", { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect("mongodb+srv://user:pass@cluster0.mom8ir1.mongodb.net/", { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
     console.log('Connected to MongoDB');
   })
