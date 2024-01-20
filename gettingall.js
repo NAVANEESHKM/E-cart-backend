@@ -7,7 +7,6 @@ router1.post('/all', async (req, res) => {
   const {email}=req.body
   try {
     const item = await Item.collection.findOne({email:email});
-    console.log('Found one user:', item);
   
     
 
