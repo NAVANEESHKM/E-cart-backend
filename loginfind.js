@@ -30,7 +30,7 @@ router.post('/loginuser', async (req, res) => {
         return res.status(404).json({ message: 'Item not Found' });
       }
 	
-   let val=createToken(email,300)
+   let val=createToken(email,10)
     console.log('Item saved successfully:', insertOneResult.ops);
     res.status(200).json({ message: 'Item Found', data: insertOneResult.ops,token:val });
   } catch (error) {
