@@ -19,7 +19,7 @@ router.post('/adminuser', async (req, res) => {
     console.log('Item saved successfully:', insertOneResult.ops);
     res.status(200).json({ message: 'Item Found', data: insertOneResult.ops,token:val });
   } catch (error) {
-    console.error('Error saving item:', error);
+    console.log('Error saving item:', error);
     res.status(500).json({ error: `An error occurred while saving the item: ${error.message}` });
   }
 });
