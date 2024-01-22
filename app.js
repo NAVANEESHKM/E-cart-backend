@@ -13,6 +13,7 @@ const user=require('./postuser');
 const login=require("./loginfind")
 const image=require("./imagepost")
 const imageget=require("./imageget")
+const Adminget=require("./Adminfind")
 const cors = require('cors');
 
 //mongodb://localhost:27017
@@ -42,6 +43,8 @@ mongoose.connect("mongodb+srv://user:pass@cluster0.mom8ir1.mongodb.net/", { useN
 
  app.use('/api',image)
 app.use('/api',imageget)
+
+app.use('/api',Adminget)
   
 
 
