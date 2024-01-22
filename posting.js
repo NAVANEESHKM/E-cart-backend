@@ -1,23 +1,3 @@
-// const express = require('express');
-// const router = express.Router();
-// const Item = require('./schemes');
-
-// router.post('/items', async (req, res) => {
-//   try {
-//     const { name, product, quantity, phone } = req.body;
-
-//     // Use insertOne to insert the document
-//     const insertOneResult = await Item.collection.insertOne({ name, product, quantity, phone });
-
-//     console.log('Item saved successfully:', insertOneResult.ops);
-//     res.status(200).json({ message: 'Item saved successfully', data: insertOneResult.ops });
-//   } catch (error) {
-//     console.error('Error saving item:', error);
-//     res.status(500).json({ error: `An error occurred while saving the item: ${error.message}` });
-//   }
-// });
-
-// module.exports = router;
 
 
 const express = require('express');
