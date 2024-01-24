@@ -5,7 +5,7 @@ const Item = require('./ProductSchema');
 // Define the route to retrieve an item by ID
 router1.post('/all/productget', async (req, res) => {
   try {
-    const item = await Item.collection.findOne({});
+    const item = await Item.collection.find({});
   
     
 
