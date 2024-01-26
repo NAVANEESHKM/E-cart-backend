@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
-const adminproductschema = new mongoose.Schema({
-    productname: {
+const adminProductSchema = new mongoose.Schema({
+  productname: {
     type: String,
     required: true
   },
@@ -16,12 +16,13 @@ const adminproductschema = new mongoose.Schema({
   price: {
     type: String,
     required: true
+  },
+  image: {
+    data: Buffer,
+    contentType: String
   }
 });
 
+const AdminProduct = mongoose.model('AdminProduct', adminProductSchema);
 
-
-
-const Item = mongoose.model('AdminProduct', adminproductschema);
-
-module.exports = Item;
+module.exports = AdminProduct;

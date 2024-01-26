@@ -1,19 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const multer = require('multer');
-const path = require('path');
-
 const Item = require('./ProductSchema');
 
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, 'uploads/');
-  },
-  filename: function (req, file, cb) {
-    cb(null, Date.now() + path.extname(file.originalname));
-  }
-});
-
+const storage = multer.memoryStorage(); // Use memory storage to store the image as Buffer
 const upload = multer({ storage: storage });
 
 router.post('/adminproduct', upload.single('image'), async (req, res) => {
@@ -21,16 +11,21 @@ router.post('/adminproduct', upload.single('image'), async (req, res) => {
     const { productname, benefits, unit, price } = req.body;
     const image = req.file;
 
-    const insertOneResult = await Item.collection.insertOne({
+    const newItem = new Item({
       productname,
       benefits,
       unit,
       price,
-      imageUrl: image ? `uploads/${image.filename}` : null
+      image: {
+        data: image ? image.buffer : null,
+        contentType: image ? image.mimetype : null
+      }
     });
 
-    console.log('Item saved successfully:', insertOneResult.ops);
-    res.status(200).json({ message: 'Item saved successfully', data: insertOneResult.ops });
+    const insertOneResult = await newItem.save();
+
+    console.log('Item saved successfully:', insertOneResult);
+    res.status(200).json({ message: 'Item saved successfully', data: insertOneResult });
   } catch (error) {
     console.error('Error saving item:', error);
     res.status(500).json({ error: `An error occurred while saving the item: ${error.message}` });
