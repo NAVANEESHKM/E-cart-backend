@@ -1,25 +1,20 @@
 const express = require('express');
 const router1 = express.Router();
 const Item = require('./ProductSchema');
-
 router1.post('/all/productget', async (req, res) => {
   try {
-    // Retrieve items from the database
     const items = await Item.find();
 
-    // Map the items to include the image data
     const itemsWithImages = items.map(item => {
-      const images = item.image || []; // Assuming 'image' is an array
+      const images = Array.isArray(item.image) ? item.image : [item.image]; // Convert to array if it's not already
 
-      // Map the images in the array
-      const mappedImages = images.map(img => {
-        return {
-          data: img.data.toString('base64'), // Convert Buffer to base64
-          contentType: img.contentType
-        };
-      });
+      const mappedImages = images.map(img => ({
+        data: img.data.toString('base64'), // Convert Buffer to base64
+        contentType: img.contentType
+      }));
 
       return {
+        _id: item._id,
         productname: item.productname,
         benefits: item.benefits,
         unit: item.unit,
@@ -28,11 +23,12 @@ router1.post('/all/productget', async (req, res) => {
       };
     });
 
-    res.status(200).json(itemsWithImages); // Send the retrieved items with images as the response
+    res.status(200).json(itemsWithImages);
   } catch (error) {
     console.error('Error retrieving items:', error);
-    res.status(500).json({ error: 'An error occurred while retrieving the items' });
+    res.status(500).json({ error: 'An error occurred while retrieving the items', details: error.message });
   }
 });
+
 
 module.exports = router1;
