@@ -16,6 +16,7 @@ const imageget=require("./imageget")
 const Adminget=require("./Adminfind")
 const AdminProduct=require("./productsposting")
 const ProductGet=require("./productget")
+const ProductGetOrder=require("./productgetorderdetails")
 const cors = require('cors');
 
 //mongodb://localhost:27017
@@ -50,6 +51,7 @@ app.use('/api',Adminget)
 app.use('/api',AdminProduct)
   
 app.use('/api',ProductGet)
+app.use('/api',ProductGetOrder)
 
 app.listen(3000, () => {
   console.log('Server started on port 3000');
